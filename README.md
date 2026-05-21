@@ -184,6 +184,8 @@ npm run dev
 
 ![技能界面](images/skill.png)
 
+项目修改自https://github.com/wang-junjian/wikillm
+
 ## 许可证
 
 MIT License - 详见 [LICENSE](LICENSE) 文件。
