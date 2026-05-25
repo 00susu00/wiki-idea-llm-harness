@@ -51,6 +51,7 @@ wikillm/
 处理事实性知识的编译和查询：
 
 1. **增量编译**（raw/ → wiki/）
+   - 触发：用户说"wiki编译" / raw/ 哈希变化 / thinking 编译完成
    - 扫描 raw/ 目录，哈希对比检测新增/修改文件
    - 多模态解构：大文档完整阅读、图片 OCR 转 Mermaid
    - 非线性重构重写为中文化 wiki 文章
@@ -58,10 +59,10 @@ wikillm/
    - 资源同步：raw/images/ → wiki/assets/
 
 2. **thinking/ 管理**（对话 → 草稿 → wiki）
-   - 对话中产生有价值思考 → 写入 thinking/ 按主题分的子目录
-   - 话题结束后进入两阶段编译：
-     - 阶段一：价值判断 — 逻辑自洽？有增量贡献？值得保留？
-     - 阶段二：佐证核查 — 回 raw/ 查找佐证，有佐证才编译进 wiki
+   - 写入：对话中产生有价值思考 → 写入 thinking/ 按主题分的子目录
+   - 话题开始（自动检测）：产生有价值思考 → 自动在 thinking/ 下创建子目录
+   - 话题结束：用户说"话题结束" → 立即触发编译；用户未说但对话主题已切换 → 自动检测并触发编译
+   - 两阶段编译：价值判断 → 佐证核查（回 raw/ 查佐证）
    - 无法佐证 → 留在 thinking/，不编译；编译完成 → 删除子目录
 
 3. **Q&A**（基于 wiki 的知识查询）
@@ -91,24 +92,26 @@ wikillm/
    - ideas/ 文件是动态的，用户会持续修改
 
 2. **thinking/ 管理**（对话 → 草稿 → projects）
-   - 对话中产生有价值思考 → 写入 thinking/ 按主题分的子目录
-   - 话题结束后进入两阶段编译：
-     - 阶段一：价值判断 — 逻辑自洽？对项目推进有增量贡献？
-     - 阶段二：佐证核查 — 在 wiki/ 和 ideas/ 中查找佐证，有佐证才编译
-   - 佐证来源分级：wiki/ 或 ideas/verified/ → 可编译；ideas/referenced/ 或 hypothesized/ → 需标明层级；无佐证 → 留在 thinking/
+   - 写入：对话中产生有价值思考 → 写入 thinking/ 按主题分的子目录
+   - 话题开始（自动检测）：产生有价值思考 → 自动在 thinking/ 下创建子目录
+   - 话题结束：用户说"话题结束" → 立即触发编译；用户未说但对话主题已切换 → 自动检测并触发编译
+   - 两阶段编译：价值判断 → 佐证核查（在 wiki/ 和 ideas/ 中查佐证）
+   - 佐证来源分级：wiki/ 或 ideas/verified/ → 可编译；ideas/referenced/ 或 hypothesized/ → 需标明层级；无佐证 → 留在 thinking/，不编译
+   - 编译完成后删除 thinking/ 子目录
 
 3. **项目 Q&A**
    - 检索范围：wiki/ + ideas/，不含 thinking/
    - 回答后提供"参考依据"，区分来源层级（知识库/已验证/引述/猜想）
 
 4. **projects/ 项目综合**（ideas + wiki → 项目规律）
+   - 触发：用户说"idea编译" / thinking 编译完成 / ideas/ 哈希变化 / wiki/ 发生变化
    - 五个阶段目录：exploring → planning → advancing → validating → concluded
    - 阶段可前进也可回退，回退时记录原因
    - 每个项目有 STATUS.md 记录当前阶段和阶段历史
    - concluded/ 中的结论可被其他项目引用
 
 5. **Linting**（健康检查）
-   - ideas/ 未分类扫描 + 归类引导、哈希变化检测
+   - ideas/ 未分类扫描 + 归类引导
    - thinking/ 停留检查、编译残留检查
    - 项目阶段完整性检查、停滞检查
    - 低置信度引用检查
@@ -147,7 +150,7 @@ wikillm/
 2. 在 Obsidian 中打开本仓库作为 vault
 3. 从 `wiki/INDEX.md` 开始探索
 
-![Obsidian 索引](images/obsidian-index.png)
+![Obsidian 索引](docs/images/obsidian-index.png)
 
 ### 在 Web 浏览器中查看
 
@@ -161,7 +164,7 @@ npm run dev
 
 然后访问 http://localhost:3000 即可查看。
 
-![](images/webui.jpeg)
+![](docs/images/webui.jpeg)
 
 **Web 应用功能：**
 - Markdown 渲染，支持 GFM 格式
@@ -182,7 +185,7 @@ npm run dev
 /ideallm
 ```
 
-![技能界面](images/skill.png)
+![技能界面](docs/images/skill.png)
 
 项目修改自https://github.com/wang-junjian/wikillm
 

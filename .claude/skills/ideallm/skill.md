@@ -61,10 +61,23 @@ exploring ⇄ planning ⇄ advancing ⇄ validating ⇄ concluded
 
 ### 2. thinking/ 管理（对话 → 草稿 → projects）
 
+**话题生命周期**：
+
+- **话题开始**（自动检测）：对话中产生有价值思考 → 自动在 thinking/ 下创建或追加子目录，子目录名用 kebab-case 代表主题
+- **话题结束**（两种方式）：
+  - 用户明确说"话题结束" → 立即触发编译
+  - 用户未说"话题结束"但对话主题已切换（问题方向改变、转向项目 Q&A 或其他操作）→ 自动检测到话题切换，对前一话题触发编译
+- 同一 skill 会话可产生多个话题，按主题分割为独立的有意义片段
+
+**写入规则**：
 - 对话中产生有价值思考 → 写入 thinking/ 按主题分的子目录
-- 话题结束后进入两阶段编译：
-  - **阶段一：价值判断** — 逻辑是否自洽？对项目推进有增量贡献？值得保留？
-  - **阶段二：佐证核查** — 在 wiki/ 和 ideas/ 中查找佐证，有佐证才编译进 projects
+- 子目录名使用 kebab-case，代表主题
+- 内容随意写：草稿、推理链、试错记录、对比分析均可
+- 无来源要求，无格式要求
+
+**编译流程**（话题结束时触发）：
+- 阶段一：价值判断 — 逻辑是否自洽？对项目推进有增量贡献？值得保留？
+- 阶段二：佐证核查 — 在 wiki/ 和 ideas/ 中查找佐证，有佐证才编译进 projects
 - 佐证来源分级：wiki/ 或 ideas/verified/ → 可编译；ideas/referenced/ 或 hypothesized/ → 需标明层级；无佐证 → 留在 thinking/
 - 编译完成后删除 thinking/ 子目录
 
@@ -76,6 +89,13 @@ exploring ⇄ planning ⇄ advancing ⇄ validating ⇄ concluded
 
 ### 4. projects/ 项目综合（ideas + wiki → 项目规律）
 
+**触发条件**（满足任一即触发）：
+- 用户明确说"idea编译"
+- thinking/ 编译完成（有新内容落入 projects/，顺势重新综合）
+- ideas/ 哈希变化（检测到新增或修改，说明项目输入已更新）
+- wiki/ 发生变化（projects 综合 wiki + ideas，wiki 更新意味着知识基础已变化）
+
+**综合规则**：
 - 五个阶段目录：exploring → planning → advancing → validating → concluded
 - 阶段可前进也可回退，回退时记录原因
 - 每个项目有 STATUS.md 记录当前阶段和阶段历史
@@ -85,7 +105,7 @@ exploring ⇄ planning ⇄ advancing ⇄ validating ⇄ concluded
 ### 5. Linting（健康检查）
 
 - ideas/ 未分类文件扫描 + 归类引导
-- ideas/ 哈希变化 → 提示相关 projects 文章可能需要更新
+- ideas/ 哈希变化 → 自动触发 projects 编译（见项目综合触发条件）
 - thinking/ 停留检查（超过 30 天提示）
 - thinking/ 编译残留检查
 - 项目阶段完整性检查（五个目录 + STATUS.md）
