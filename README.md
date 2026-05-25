@@ -102,6 +102,7 @@ wikillm/
 3. **项目 Q&A**
    - 检索范围：wiki/ + ideas/，不含 thinking/
    - 回答后提供"参考依据"，区分来源层级（知识库/已验证/引述/猜想）
+   - 有价值结论 → 按置信度写入 ideas/ 对应子目录（触发后续 projects 编译）
 
 4. **projects/ 项目综合**（ideas + wiki → 项目规律）
    - 触发：用户说"idea编译" / thinking 编译完成 / ideas/ 哈希变化 / wiki/ 发生变化

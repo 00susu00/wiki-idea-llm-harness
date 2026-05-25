@@ -84,6 +84,19 @@ ideas/
 - ideas/hypothesized/ 内容需标明猜想性质
 - ideas/inspired/ 内容仅作方向参考，不作为结论依据
 
+### Q&A 沉淀
+
+Q&A 中产生有价值的结论时，按置信度写入 `ideas/<project>/` 对应子目录：
+
+| 结论特征 | 写入目录 | 示例 |
+|---------|---------|------|
+| 有 wiki/ 佐证支撑 | `verified/` | Q&A 中基于 wiki 事实得出的确认性结论 |
+| 引用他人观点 | `referenced/` | Q&A 中转述的外部观点 |
+| 合理推断但无直接佐证 | `hypothesized/` | Q&A 中的逻辑推演结论 |
+| 碎片化灵感 | `inspired/` | Q&A 中萌发的方向性想法 |
+
+写入后，这些结论会参与后续的 projects 编译（触发 ideas/ 哈希变化）。
+
 ## ideas/ 文件更新
 
 ideas/ 中的文件是动态的，用户会持续修改。当 ideas/ 文件内容变更时：

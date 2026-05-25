@@ -86,6 +86,7 @@ exploring ⇄ planning ⇄ advancing ⇄ validating ⇄ concluded
 - 检索范围：wiki/ + ideas/，不含 thinking/
 - 回答后提供"参考依据"，区分来源层级（知识库/已验证/引述/猜想）
 - 引用规则：wiki 作事实依据，verified 作经验依据，referenced 需注明来源，hypothesized 标明猜想，inspired 仅作方向参考
+- Q&A 中产生有价值结论 → 按置信度写入 ideas/<project>/ 对应子目录（有 wiki 佐证→verified/，引用他人观点→referenced/，推断→hypothesized/，灵感→inspired/）
 
 ### 4. projects/ 项目综合（ideas + wiki → 项目规律）
 
