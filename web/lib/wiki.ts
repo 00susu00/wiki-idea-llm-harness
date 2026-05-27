@@ -76,7 +76,7 @@ function getPageBasic(filePath: string, category?: string): WikiPage | null {
     const content = fs.readFileSync(filePath, 'utf8')
     const { data } = matter(content)
 
-    const relativePath = path.relative(WIKI_ROOT, filePath)
+    const relativePath = path.relative(WIKI_ROOT, filePath).replace(/\\/g, '/')
     const slug = relativePath.replace(/\.md$/, '').replace(/\//g, '--')
 
     return {
@@ -122,7 +122,7 @@ export async function getPageByPath(filePath: string, category?: string, linkMap
     const content = fs.readFileSync(filePath, 'utf8')
     const { data, content: markdown } = matter(content)
 
-    const relativePath = path.relative(WIKI_ROOT, filePath)
+    const relativePath = path.relative(WIKI_ROOT, filePath).replace(/\\/g, '/')
     const slug = relativePath.replace(/\.md$/, '').replace(/\//g, '--')
 
     const map = linkMap || await buildLinkMap()
@@ -157,6 +157,8 @@ export async function getPageByPath(filePath: string, category?: string, linkMap
 
 // 通过 slug 获取页面
 export async function getPageBySlug(slug: string): Promise<WikiPage | null> {
+  // 剥离 MediaWiki 风格的消歧义后缀 (:1, :2, ...)
+  slug = slug.replace(/:\d+$/, '')
   const map = await buildLinkMap()
 
   // 先尝试直接找
